@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+            <div class="sidebar-sticky">
+                <form action="" method="post">
+                    {{ form.hidden_tag() }}
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            {{ form.company.label }}<br>
+                            {{ form.company(size=32,class_="form-control-sm",maxlength=140) }}<br>
+                            {% for error in form.company.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </li>
+                        <li class="nav-item">
+                            {{ form.department.label }}<br>
+                            {{ form.department(size=32,class_="form-control-sm",maxlength=140) }}<br>
+                            {% for error in form.department.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </li>
+                        <li class="nav-item">
+                            {{ form.priority_dept.label }}<br>
+                            {{ form.priority_dept(size=32,class_="form-control-sm",maxlength=3,pattern="^[1-9][0-9]{0,2}",title="Enter Valid value 1-999") }}<br>
+                            {% for error in form.priority_dept.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </li>
+                        <li class="nav-item">
+                            {{ form.requester.label }}<br>
+                            {{ form.requester(size=32,class_="form-control-sm",maxlength=140) }}<br>
+                            {% for error in form.requester.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </li>
+                        <li class="nav-item">
+                            {{ form.hours.label }}<br>
+                            {{ form.hours(size=32,class_="form-control-sm",maxlength=140) }}<br>
+                            {% for error in form.hours.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </li>
+                        <li class="nav-item">
+                            {{ form.status.label }}<br>
+                            {{ form.status(size=32,class_="form-control-sm",maxlength=140) }}<br>
+                            {% for error in form.status.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </li>
+                        <li class="nav-item">
+                            {{ form.priority.label }}<br>
+                            {{ form.priority(size=32,class_="form-control-sm",maxlength=3,pattern="^[1-9][0-9]{0,2}",title="Enter Valid value 1-999") }}<br>
+                            {% for error in form.priority.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </li>
+                        <li class="nav-item">
+                            {{ form.ticket.label }}<br>
+                            {{ form.ticket(size=32,class_="form-control-sm",maxlength=140) }}<br>
+                            {% for error in form.ticket.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </li>
+                        <li class="nav-item">
+                            {{ form.description.label }}<br>
+                            {{ form.description(class_="form-control-sm",maxlength=140) }}<br>
+                            {% for error in form.description.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+            <h2>Comments Section - (Newest to oldest.)</h2>
+            <div class="table-responsive">
+                <table class="table table-sm table-dark">
+                    <thead>
+
+                    </thead>
+                    <tbody>
+                        {% for comm in comment | reverse %}
+                        {% if comm.comment != "" %}
+                        <tr>
+                            <td><span class="utctime">{{ comm.timestamp.strftime('%m/%d/%Y %I:%M:%S %p') }} UTC</span>
+                            </td>
+                            <td>{{ comm.comment }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+
+
+
+{% endblock %}

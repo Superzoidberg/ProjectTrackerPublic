@@ -1,0 +1,102 @@
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}?v={{ cfilesize }}">
+        <title>Project Tracker</title>
+    </head>
+    <body>
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('allprojects') }}"><b>{{ dev }}</b> <span class="sr-only">(current)</span></a>
+            </li>
+            {% if current_user.is_authenticated %}
+              <li id="home" class="nav-item">
+                <a class="nav-link" href="{{ url_for('allprojects') }}">All Projects <span class="sr-only">(current)</span></a>
+              </li>
+              <li id="completed" class="nav-item">
+                <a class="nav-link" href="{{ url_for('completed') }}">All Completed <span class="sr-only">(current)</span></a>
+              </li>
+            
+              <li class="nav-item">
+                <span class="navbar-text">  ||  </span>
+              </li>
+              <li id="myList" class="nav-item">
+                <a class="nav-link" href="/projects/{{ current_user.username }}">My List <span class="sr-only">(current)</span></a>
+              </li>
+              <li id="devcompleted" class="nav-item">
+                <a class="nav-link" href="/projects/{{ current_user.username }}/devcompleted">My Completed <span class="sr-only">(current)</span></a>
+              </li>
+              <li id="newProject" class="nav-item">
+                <a class="nav-link" href="/projects/{{ current_user.username }}/new">New Project <span class="sr-only">(current)</span></a>
+              </li>
+            
+            </ul>
+
+            <ul class="navbar-nav mr-auto">
+              <li id="newProject" class="nav-item">
+                <form id="navSelectForm" action="/projects/{{ current_user.username }}">
+                  <div class="input-group">
+                    <select class="custom-select" onchange="selectChanged(this)" id="navSelect">
+                      <option value="select">Select Developer</option>
+                      {% for allUser in allUsers %}
+                      <option value="/projects/{{ allUser.username }}">{{ allUser.username }}</option>
+                      {% endfor %}
+                    </select>
+                    <div class="input-group-append">
+                      <input class="btn btn-outline-secondary" type="submit" value="View"></input>
+                    </div>
+                  </div>
+                </form>
+              </li>
+            </ul>
+            {% endif %}
+            <div id="messageAlert"> 
+                <ul class="navbar-nav abs-center-x">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                      <li class="nav-item active">
+                          <span class="navbar-text" id="alert">  <strong>{{ message }}</strong>  </span>
+                      </li>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                </ul>
+            </div>
+           
+            
+
+
+          
+
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                {% if current_user.is_anonymous %}
+                <a id="login" class="nav-link" href="{{ url_for('login') }}">Login <span class="sr-only">(current)</span></a>
+                {% else %}
+                <a id="logout" class="nav-link" href="{{ url_for('logout') }}">Log Out <span class="sr-only">(current)</span></a>
+                {% endif %}
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        {% if current_user.is_anonymous %}
+        <h1>Welcome! Please login to go to your projects.</h1>
+        {% endif %}
+
+
+        {% block content %}{% endblock %}
+    </body>
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery_321.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='javascript.js') }}?v={{ jfilesize }}"></script>
+</html>

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+	<table class="table table-striped table-hover table-sm table-dark table-bordered">
+	  <thead>
+	    <tr>
+	      <th scope="col">Company</th>
+	      <th scope="col">Department</th>
+				<th scope="col">Requester</th>
+				<th scope="col">Hours</th>
+	      <th scope="col">Status</th>
+				<th scope="col">Priority</th>
+				<th scope="col">Ticket</th>
+				<th scope="col">Description</th>
+				<th scope="col">Comp. Date</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% if current_user.is_authenticated %}
+	  	{% for project in projects %}
+	    <tr>
+	      <td><a href="/projects/completed/{{ project[1].id }}">{{ project[1].company }}</a></td>
+	      <td>{{ project[1].department }}</td>
+				<td>{{ project[1].requester }}</td>
+				<td>{{ project[1].hours }}</td>
+	      <td>{{ project[1].status }}</td>
+				{% if project[1].priority == "9999" %}
+	      <td></td>
+				{% else %}
+				<td>{{ project[1].priority }}</td>
+				{% endif %}
+				<td>{{ project[1].ticket }}</td>
+				<td>{{ project[1].description }}</td>
+				<td><span class="utctime">{{ project[1].timestamp.strftime('%m/%d/%Y %I:%M:%S %p') }} UTC</span></td>
+	    </tr>
+	    {% endfor %}
+	    {% endif %}
+	  </tbody>
+	</table>
+			{% if prev_url %}
+			<a href="{{ prev_url }}"><< </a>
+			<span>|</span>
+			{% else %}
+			<span><< |</span>
+			{% endif %}
+			{% if next_url %}
+			<span>|</span>
+			<a href="{{ next_url }}"> >></a>
+			{% else %}
+			<span>| >></span>
+			{% endif %}
+</div>
+{% endblock %}

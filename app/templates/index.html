@@ -1,0 +1,55 @@
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='indexstyles.css') }}?v={{ cfilesize }}">
+	<title>EDI Landing Page</title>
+</head>
+
+<body>
+	<div class=>
+		<main role="main">
+
+			<!-- Main jumbotron for a primary marketing message or call to action -->
+			<div class="jumbotron">
+				<div class="container">
+					<h1 class="display-3">Knight EDI Apps</h1>
+					<p>
+					</p>
+				</div>
+			</div>
+
+			<div class="container">
+				<!-- Example row of columns -->
+				<div class="row">
+					<div class="col-md-4">
+						<h2>EDI Dashboard</h2>
+						<p>A site that lets users search for EDI transactions by specific reference numbers. </p>
+						<p><a class="btn btn-secondary" href="/sisearch" role="button">Go &raquo;</a></p>
+					</div>
+					<div class="col-md-4">
+						<h2>EDI Project Tracker</h2>
+						<p>A site that lets users manage their own projects. </p>
+						<p><a class="btn btn-secondary" href="/login" role="button">Go &raquo;</a></p>
+					</div>
+					<div class="col-md-4">
+						<h2>Walmart EDI View</h2>
+						<p>View today's EDI transactions from Walmart. </p>
+						<p><a class="btn btn-secondary" href="/walmartview" role="button">Go &raquo;</a></p>
+					</div>
+				</div>
+
+				<hr>
+
+			</div> <!-- /container -->
+
+		</main>
+	</div>
+	
+
+	<footer class="container">
+		<p>@ Knight EDI 2019</p>
+	</footer>
+</body>
+</html>

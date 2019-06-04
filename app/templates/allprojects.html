@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+	<table class="table table-fixed table-striped table-hover table-sm table-dark table-bordered">
+	  <thead>
+	    <tr>
+	      <th scope="col">Developer</th>
+	      <th scope="col">Company</th>
+				<th scope="col">Department</th>
+				<th scope="col">Dept. Priority</th>
+				<th scope="col">Requester</th>
+				<th scope="col">Hours</th>
+	      <th scope="col">Status</th>
+				<th scope="col">Dev. Priority</th>
+				<th scope="col">Ticket</th>
+				<th scope="col">Description</th>
+				<th scope="col">Last Comment <a id="csvDownload" onclick="downloadCSV()" href="#">Download</a></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% if current_user.is_authenticated %}
+	  	{% for project in projects %}
+	    <tr>
+	      <td><a href="/projects/{{ project[0].username }}/{{ project[1].id }}">{{ project[0].username }}</a></td>
+	      <td>{{ project[1].company }}</td>
+				<td>{{ project[1].department }}</td>
+				{% if project[1].priority_dept == "9999" %}
+					<td></td>
+				{% else %}
+					<td>{{ project[1].priority_dept }}</td>
+				{% endif %}
+				<td>{{ project[1].requester }}</td>
+				<td>{{ project[1].hours }}</td>
+	      <td>{{ project[1].status }}</td>
+				{% if project[1].priority == "9999" %}
+					<td></td>
+				{% else %}
+					<td>{{ project[1].priority }}</td>
+				{% endif %}
+				<td>{{ project[1].ticket }}</td>
+				<td>{{ project[1].description }}</td>
+				<td>
+				{% if project[1].comment.comment %}
+					<span class="utctime">{{ project[1].comment.timestamp.strftime('%m/%d/%Y %I:%M:%S %p') }} UTC</span> - {{ project[1].comment.comment }}
+				{% endif %}
+				</td>
+	    </tr>
+	    {% endfor %}
+	    {% endif %}
+	  </tbody>
+	</table>
+</div>
+{% endblock %}

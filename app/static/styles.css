@@ -1,0 +1,69 @@
+body{
+    background: black;
+    color: white;
+}
+
+#navSelectForm{
+    margin: 0;
+}
+
+#alert{
+    color: white;
+}
+
+
+th {
+  position: sticky;
+  top: 52px;
+  background: black;
+  /* color: white; */
+}
+
+.table.table-dark.table-bordered{
+  border-style: solid;
+  border-color: black;
+  border-width: 3px;
+}
+
+.container-fluid{
+  border-style: solid;
+  border-color: black;
+  border-width: 3px;
+}
+
+/* .table>tbody>tr>td,  */
+.table>tbody>tr>th, 
+.table>tfoot>tr>td, 
+.table>tfoot>tr>th, 
+.table>thead>tr>td, 
+.table>thead>tr>th {
+  border:0;
+}
+
+a{
+    color: chartreuse;
+}
+
+.modal-content{
+    background-color: #343a40;
+}
+
+.editbtn{
+    margin-bottom: 25px;
+}
+
+#csvDownload{
+    float: right;
+}
+
+#comment{
+    height: 100px;
+    resize: none;
+    width: 100%;
+}
+
+#description{
+    height: 60px;
+    resize: none;
+    width: 100%;
+}

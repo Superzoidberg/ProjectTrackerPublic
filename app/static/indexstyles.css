@@ -1,0 +1,7 @@
+.jumbotron{
+ background-image: url("road2.png");
+ background-size: cover;
+ background-repeat: no-repeat;
+ color: aliceblue;
+ text-align: center;
+}

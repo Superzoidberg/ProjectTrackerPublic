@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+        <div class="sidebar-sticky">
+        <form action="" method="post">
+          {{ form.hidden_tag() }}
+          <ul class="nav flex-column">
+            <li class="nav-item">
+                {{ form.company.label }}<br>
+                {{ form.company(size=32,class_="form-control-sm",maxlength=140) }}<br>
+                {% for error in form.company.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </li>
+            <li class="nav-item">
+                {{ form.department.label }}<br>
+                {{ form.department(size=32,class_="form-control-sm",maxlength=140) }}<br>
+                {% for error in form.department.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </li>
+            <li class="nav-item">
+                {{ form.priority_dept.label }}<br>
+                {{ form.priority_dept(size=32,class_="form-control-sm",maxlength=3,pattern="^[1-9][0-9]{0,2}",title="Enter Valid value 1-999") }}<br>
+                {% for error in form.priority_dept.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </li>
+            <li class="nav-item">
+                {{ form.requester.label }}<br>
+                {{ form.requester(size=32,class_="form-control-sm",maxlength=140) }}<br>
+                {% for error in form.requester.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </li>
+            <li class="nav-item">
+                {{ form.hours.label }}<br>
+                {{ form.hours(size=32,class_="form-control-sm",maxlength=140) }}<br>
+                {% for error in form.hours.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </li>
+            <li class="nav-item">
+                {{ form.status.label }}<br>
+                {{ form.status(size=32,class_="form-control-sm",maxlength=140) }}<br>
+                {% for error in form.status.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </li>
+            <li class="nav-item">
+                {{ form.priority.label }}<br>
+                {{ form.priority(size=32,class_="form-control-sm",maxlength=3,pattern="^[1-9][0-9]{0,2}",title="Enter Valid value 1-999") }}<br>
+                {% for error in form.priority.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </li>
+            <li class="nav-item">
+                {{ form.ticket.label }}<br>
+                {{ form.ticket(size=32,class_="form-control-sm",maxlength=140) }}<br>
+                {% for error in form.ticket.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </li>
+            <li class="nav-item">
+                {{ form.description.label }}<br>
+                {{ form.description(class_="form-control-sm",maxlength=140) }}<br>
+                {% for error in form.description.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </li>
+            <li class="nav-item">
+              {% if current_user.is_authenticated and (current_user.username == user.username or currentRole.role == "super") %}
+
+                {{ form.comment.label }}<br>
+                {{ form.comment(class_="form-control",maxlength=1024) }}<br>
+                {% for error in form.comment.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                {{ form.submit(class_="editbtn") }}
+              {% endif %}
+            </li>
+                {% if current_user.is_authenticated and (current_user.username == user.username or currentRole.role == "super") %}
+                <button type="button" class="btn btn-primary btn-block editbtn" data-toggle="modal" data-target="#finishModal">
+                  Finish
+                </button>
+                <button type="button" class="btn btn-danger btn-block editbtn" data-toggle="modal" data-target="#deleteModal">
+                  Delete
+                </button>
+                {% if currentRole.role == "super" %}
+                <button type="button" class="btn btn-warning btn-block editbtn" data-toggle="modal" data-target="#newDevModal">
+                  Change Dev
+                </button>
+                {% endif %}
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">!! WARNING !!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to delete this Project?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a class="btn btn-danger" href="/projects/{{ current_user.username }}/{{ project.id }}/destroy">Delete</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal fade" id="finishModal" tabindex="-1" role="dialog" aria-labelledby="finishModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">FINISH PROJECT</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Is this Project finished?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a class="btn btn-primary" href="/projects/{{ current_user.username }}/{{ project.id }}/complete">Finish</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal fade" id="newDevModal" tabindex="-1" role="dialog" aria-labelledby="newDevModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Move to a different Dev?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Select Dev and move project?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <form method="POST" action="/projects/{{ current_user.username }}/{{project.id }}/move">
+                          <select class="custom-select" name="devUsername" required>
+                            <option value="SelectDev">Select Dev</option>
+                            {% for allUser in allUsers %}
+                            <option value="{{ allUser.username }}">{{ allUser.username }}</option>
+                            {% endfor %}
+                          </select>
+                          <input class="btn btn-warning" type="submit" value="Move">
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {% endif %}
+          </ul>
+        </form>
+        </div>
+      </nav>
+
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+        <h2>Comments Section - (Newest to oldest.)</h2>
+        <div class="table-responsive">
+          <table class="table table-sm table-dark">
+            <thead>
+
+            </thead>
+            <tbody>
+              {% for comm in comment | reverse %}
+              {% if comm.comment != "" %}
+              <tr>
+                <td><span class="utctime">{{ comm.timestamp.strftime('%m/%d/%Y %I:%M:%S %p') }} UTC</span></td>
+                <td>{{ comm.comment }}</td>
+              </tr>
+              {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+
+
+
+{% endblock %}

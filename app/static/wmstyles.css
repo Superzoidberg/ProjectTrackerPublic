@@ -1,0 +1,49 @@
+body{
+    background: black;
+    color: white;
+}
+
+a{
+    color: chartreuse;
+}
+
+
+th {
+  position: sticky;
+  top: 38px;
+  background: black;
+  /* color: white; */
+}
+
+td {
+  max-width: 100px;
+  word-wrap: normal;
+}
+
+.table.table-dark.table-bordered{
+  border-style: solid;
+  border-color: black;
+  border-width: 3px;
+}
+
+.container-fluid{
+  border-style: solid;
+  border-color: black;
+  border-width: 3px;
+}
+
+/* .table>tbody>tr>td,  */
+.table>tbody>tr>th, 
+.table>tfoot>tr>td, 
+.table>tfoot>tr>th, 
+.table>thead>tr>td, 
+.table>thead>tr>th {
+  border:0;
+}
+
+#filetype{
+  color: red;
+}
+#filetype204{
+  color: greenyellow;
+}

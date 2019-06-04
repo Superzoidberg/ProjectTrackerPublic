@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+	<table class="table table-fixed table-striped table-hover table-sm table-dark table-bordered">
+	  <thead>
+	    <tr>
+	      <th scope="col">Company</th>
+				<th scope="col">Department</th>
+				<th scope="col">Dept. Priority</th>
+				<th scope="col">Requester</th>
+				<th scope="col">Hours</th>
+	      <th scope="col">Status</th>
+				<th scope="col">Dev. Priority</th>
+				<th scope="col">Ticket</th>
+	      <th scope="col">Description</th>
+          <th scope="col">Last Comment</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for project in projects %}
+	    <tr>
+	      <td><a href="/projects/{{ dev }}/{{ project.id }}">{{ project.company }}</a></td>
+				<td>{{ project.department }}</td>
+			{% if project.priority_dept == "9999" %}
+				<td></td>
+			{% else %}
+				<td>{{ project.priority_dept }}</td>
+			{% endif %}
+				<td>{{ project.requester }}</td>
+				<td>{{ project.hours }}</td>
+	      <td>{{ project.status }}</td>
+		  {% if project.priority == "9999" %}
+	      <td></td>
+		  {% else %}
+		  <td>{{ project.priority }}</td>
+		  {% endif %}
+				<td>{{ project.ticket }}</td>
+				<td>{{ project.description }}</td>
+				<td>
+				{% if project.comment.comment %}
+					<span class="utctime">{{ project.comment.timestamp.strftime('%m/%d/%Y %I:%M:%S %p') }} UTC</span> - {{ project.comment.comment }}
+				{% endif %}
+				</td>
+	    </tr>
+	    {% endfor %}
+	  </tbody>
+	</table>
+</div>
+
+
+{% endblock %}
